@@ -24,6 +24,7 @@ class Proyecto{
 
 //-----------------------------------------------------------
 //Funcions JSON-Server
+//Proyectos
 
 export async function obtenerProyectos() {
     const response = await fetch(`${API_SERVER}/proyectos`);
@@ -42,7 +43,16 @@ export async function agregarProyecto(proyecto) {
     const nuevoProyecto = await response.json();
     store.proyectos.push(nuevoProyecto);
 }
+//-----------------------------------------------------
+//Usuarios
 
+export async function obtenerUsuarios() {
+
+    const response = await fetch(`${API_SERVER}/users`);
+    const responseJSON = await response.json();
+    return responseJSON;
+    
+}
 //-----------------------------------------------------
 //Funciones  inicio de sesión
 

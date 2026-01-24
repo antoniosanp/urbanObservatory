@@ -32,6 +32,7 @@ export function router(){
             break;
     
         default:
+            location.hash = "#/home"
             break;
     }
 

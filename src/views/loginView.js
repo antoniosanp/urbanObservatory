@@ -1,5 +1,6 @@
 //loginView.js
-import { iniciarSesion } from "../store/store.js";
+import { iniciarSesion, store } from "../store/store.js";
+import { obtenerUsuarios } from "../store/store.js";
 
 export function loginView(){
     document.body.className = "auth-body";
@@ -44,13 +45,40 @@ export function loginView(){
     
     `
 
-    const form = div.querySelector("form");
-    form.addEventListener("submit", (e)=>{
-        e.preventDefault();
+    const emailIpt = div.querySelector("#email");
+    const passwordIpt = div.querySelector("#password");
+    const autError = div.querySelector(".auth-error");
 
-        location.hash = "#/home"
-        iniciarSesion()
+    const form = div.querySelector("form");
+    form.addEventListener("submit", async (e)=>{
+        e.preventDefault();
+        const users = await obtenerUsuarios();
+
+        if (validarLogin(emailIpt.value, passwordIpt.value, users))
+        {
+          autError.classList.add("hidden")
+          store.user = "antonio"
+          iniciarSesion();
+          location.hash = "#/home"
+        }
+        else 
+        {
+          autError.classList.remove("hidden")
+        }
+
     })
+
+    function validarLogin(emai, password, users){
+
+      for(const user of users){
+        
+        if (user.user === emai && user.password == password) {return true}
+      }
+      return false
+    }
+
+
+
     return div
 
 }
