@@ -1,3 +1,4 @@
+//nuevoProyectoView.js
 import { Proyecto } from "../store/store.js";
 import { agregarProyecto } from "../store/store.js";
 
@@ -52,9 +53,9 @@ export function nuevoProyectoView(){
           <button type="submit" class="btn btn-primary">
             Guardar proyecto
           </button>
-          <a href="index.html" class="btn btn-outline">
+        <button type="button" class="btn btn-outline" id="cancelar">
             Cancelar
-          </a>
+        </button>
         </div>
 
         <p class="form-message success hidden">
@@ -64,6 +65,7 @@ export function nuevoProyectoView(){
         <p class="form-message error hidden">
           ❌ Error al crear el proyecto
         </p>
+
 
       </form>
 
@@ -76,29 +78,45 @@ export function nuevoProyectoView(){
     const lon = main.querySelector("#lon");
     const estado = main.querySelector("#status");
     const form = main.querySelector("form");
+    const mensajeExito = main.querySelector(".success");
+    const mensajeError = main.querySelector(".error")
 
+
+    const botonCancelar = main.querySelector("#cancelar");
+    botonCancelar.addEventListener("click", ()=>{
+        location.hash = "#/home"
+    })
+    // Attach a capture-phase listener so it runs before other listeners
     form.addEventListener("submit", async (e)=>{
-        e.preventDefault();
+      console.log("[nuevoProyectoView] submit event fired (capture)");
+      e.preventDefault();
+      e.stopImmediatePropagation();
 
-        agregarNuevoProyecto(
+        try {
+            await agregarNuevoProyecto(
             descripcion.value,
             ciudad.value,
             estado.value,
             lon.value,
-            lat.valu
-            
-        )
-        alert("bien")
+            lat.value);
+            console.log("[nuevoProyectoView] proyecto agregado (await returned)");
+            mensajeExito.classList.remove("hidden");
+           // location.hash ="#/home"
 
+        } catch (error) {
+            mensajeError.classList.remove("hidden");
+        }
+        
 
-    })
+    }, {capture: true})
 
+    
 
     return main;
 }
 
 async function agregarNuevoProyecto(descripcion,ciudad,estado,lon, lat){
-    const nuevoProyecto = new Proyecto(descripcion,ciudad,estado,lon,lat);
+    const nuevoProyecto = new Proyecto(descripcion,ciudad,estado,Number(lon),Number(lat));
     await agregarProyecto(nuevoProyecto)
 
 }
