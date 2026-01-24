@@ -2,7 +2,7 @@
 import { store } from "../store/store.js";
 import { proyectoCard } from "../components/proyectoCard.js";
 
-export async function homeView(){
+export  function homeView(){
     const main = document.createElement("main");
     main.innerHTML = 
     `
@@ -61,16 +61,18 @@ export async function homeView(){
         </section>
     
         `
-        
+        console.log(store.proyectos)
 
         const projectsGrid = main.querySelector(".projects-grid");
-        await renderProyectos(projectsGrid)
+        renderProyectos(projectsGrid)
         return main
 }
 
 async function renderProyectos(div){
-    for (proyecto of store.proyectos){
-        const card = await proyectoCard(proyecto);
+    for (const pro of store.proyectos){
+        
+        console.log(pro)
+        const card = await proyectoCard(pro);
         div.appendChild(card)
     }
 

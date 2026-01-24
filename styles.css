@@ -274,17 +274,17 @@ body {
   font-weight: 500;
 }
 
-.badge.active {
+.badge.activo {
   background: #d1fae5;
   color: #065f46;
 }
 
-.badge.finished {
+.badge.finalizado {
   background: #f3f4f6;
   color: #1f2937;
 }
 
-.badge.pending {
+.badge.pendiente {
   background: #fef3c7;
   color: #92400e;
 }

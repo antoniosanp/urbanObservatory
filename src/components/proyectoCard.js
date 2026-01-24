@@ -24,7 +24,7 @@ export async function proyectoCard(proyecto){
                                 </svg>
                             </button>
                         </div>
-                        <span class="badge active">${proyecto.estado}</span>
+                        <span class="badge ${proyecto.estado}">${proyecto.estado}</span>
                     </div>
                     <div class="project-body">
                         <p class="project-description">${proyecto.descripcion} </p>
