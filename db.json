@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "user": "admin@gmail.com",
+      "password": 12345
+    }
+  ],
+  "sesion-iniciada": false,
+  "proyectos": [
+    {
+      "id": 1,
+      "descripcion": "Construcción edificio residencial",
+      "ciudad": "Medellín",
+      "estado": "En progreso",
+      "lon": -75.5812,
+      "lat": 6.2442
+    },
+    {
+      "id": 2,
+      "descripcion": "Remodelación centro comercial",
+      "ciudad": "Bogotá",
+      "estado": "Planeación",
+      "lon": -74.0721,
+      "lat": 4.7110
+    },
+    {
+      "id": 3,
+      "descripcion": "Proyecto vial autopista",
+      "ciudad": "Cali",
+      "estado": "Finalizado",
+      "lon": -76.5320,
+      "lat": 3.4516
+    },
+    {
+      "id": 4,
+      "descripcion": "Parque solar fotovoltaico",
+      "ciudad": "Barranquilla",
+      "estado": "En ejecución",
+      "lon": -74.7964,
+      "lat": 10.9685
+    }
+  ]
+}
