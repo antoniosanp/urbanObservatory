@@ -3,6 +3,14 @@ import { store } from "../store/store.js";
 import { proyectoCard } from "../components/proyectoCard.js";
 
 export  function homeView(){
+
+    let N_activos = 0;
+    let N_pendiente = 0;
+    let N_finalizado = 0;
+
+    for(const pro of store.proyectos){
+        contarProyectos(pro)
+    }
     const main = document.createElement("main");
     main.innerHTML = 
     `
@@ -39,15 +47,15 @@ export  function homeView(){
             <div class="stats-grid">
                 <div class="stat-card green">
                     <p class="stat-label">Proyectos Activos</p>
-                    <p class="stat-value">4</p>
+                    <p class="stat-value">${N_activos}</p>
                 </div>
                 <div class="stat-card yellow">
                     <p class="stat-label">En Desarrollo</p>
-                    <p class="stat-value">1</p>
+                    <p class="stat-value">${N_pendiente}</p>
                 </div>
                 <div class="stat-card gray">
                     <p class="stat-label">Finalizados</p>
-                    <p class="stat-value">1</p>
+                    <p class="stat-value">${N_finalizado}</p>
                 </div>
             </div>
         </section>
@@ -65,15 +73,47 @@ export  function homeView(){
 
         const projectsGrid = main.querySelector(".projects-grid");
         renderProyectos(projectsGrid)
+
+        const inpFiltroEstado = main.querySelector(".select-input")
+        const btnFiltro = main.querySelector(".filter-button")
+        btnFiltro.addEventListener("click", async()=>{
+            renderProyectos(projectsGrid, inpFiltroEstado.value);
+        })
         return main
 }
 
-async function renderProyectos(div){
+async function renderProyectos(div, filto = null){
+    div.innerHTML = "";
+    
     for (const pro of store.proyectos){
-        
-        console.log(pro)
+    
         const card = await proyectoCard(pro);
-        div.appendChild(card)
-    }
+        if (!filto) {div.appendChild(card)}
+        else 
+        {
+        if (pro.estado == filto)
+       { div.appendChild(card)} 
+        }
+    
 
+    }
+}
+
+function contarProyectos(proyecto){
+    switch (proyecto.estado) {
+        case "activo":
+            N_activos ++
+            break;
+        
+        case "pendiente":
+            N_pendiente++
+            break;
+        
+        case "finalizado":
+            N_finalizado++
+            break;
+    
+        default:
+            break;
+    }
 }
