@@ -10,7 +10,7 @@ export const store = {
 //-----------------------------------------------------------
 //Funciones Proyecto
 
-class Proyecto{
+export class Proyecto{
     constructor(descripcion, ciudad, estado , lon, lat){
         this.descripcion = descripcion;
         this.ciudad = ciudad,

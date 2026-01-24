@@ -1,3 +1,6 @@
+import { Proyecto } from "../store/store.js";
+import { agregarProyecto } from "../store/store.js";
+
 export function nuevoProyectoView(){
     const main = document.createElement("main");
     main.className = "container"
@@ -67,6 +70,35 @@ export function nuevoProyectoView(){
     </section>
     
     `
+    const descripcion = main.querySelector("#name");
+    const ciudad = main.querySelector("#city");
+    const lat = main.querySelector("#lat");
+    const lon = main.querySelector("#lon");
+    const estado = main.querySelector("#status");
+    const form = main.querySelector("form");
+
+    form.addEventListener("submit", async (e)=>{
+        e.preventDefault();
+
+        agregarNuevoProyecto(
+            descripcion.value,
+            ciudad.value,
+            estado.value,
+            lon.value,
+            lat.valu
+            
+        )
+        alert("bien")
+
+
+    })
+
 
     return main;
+}
+
+async function agregarNuevoProyecto(descripcion,ciudad,estado,lon, lat){
+    const nuevoProyecto = new Proyecto(descripcion,ciudad,estado,lon,lat);
+    await agregarProyecto(nuevoProyecto)
+
 }

@@ -5,7 +5,6 @@
       "user": "admin@govtech.com",
       "password": 12345
     },
-
     {
       "id": 2,
       "user": "antonio@hotmail.com",
@@ -28,14 +27,14 @@
       "ciudad": "Bogotá",
       "estado": "Planeación",
       "lon": -74.0721,
-      "lat": 4.7110
+      "lat": 4.711
     },
     {
       "id": 3,
       "descripcion": "Proyecto vial autopista",
       "ciudad": "Cali",
       "estado": "Finalizado",
-      "lon": -76.5320,
+      "lon": -76.532,
       "lat": 3.4516
     },
     {
@@ -45,6 +44,20 @@
       "estado": "En ejecución",
       "lon": -74.7964,
       "lat": 10.9685
+    },
+    {
+      "id": "8cfd",
+      "descripcion": "cembrar arroz",
+      "ciudad": "china",
+      "estado": "activo",
+      "lon": "32"
+    },
+    {
+      "id": "235e",
+      "descripcion": "a",
+      "ciudad": "2",
+      "estado": "activo",
+      "lon": "2"
     }
   ]
 }
