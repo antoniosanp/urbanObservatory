@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Iniciar sesión - Observatorio Urbano</title>
-  <link rel="stylesheet" href="/styles.css" />
-</head>
-<body class="auth-body">
+//loginView.js
+import { iniciarSesion } from "../store/store.js";
 
-  <main class="auth-container">
+export function loginView(){
+    document.body.className = "auth-body";
+    const div = document.createElement("div");
+
+    div.innerHTML = 
+    `
+        <main class="auth-container">
     <section class="auth-card">
 
       <header class="auth-header">
@@ -42,6 +41,16 @@
 
     </section>
   </main>
+    
+    `
 
-</body>
-</html>
+    const form = div.querySelector("form");
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+
+        location.hash = "#/home"
+        iniciarSesion()
+    })
+    return div
+
+}
