@@ -9,7 +9,7 @@ import { footer } from "../components/footer.js";
 import { cerrarSesion } from "../store/store.js";
 import { nuevoProyectoView } from "../views/nuevoProyectoView.js";
 
-export function router(){
+export async function router(){
     console.log("me estoy ruteando")
     const hash = location.hash;
     document.body.className = "";

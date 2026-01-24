@@ -81,16 +81,15 @@ export function nuevoProyectoView(){
     const mensajeExito = main.querySelector(".success");
     const mensajeError = main.querySelector(".error")
 
-
     const botonCancelar = main.querySelector("#cancelar");
     botonCancelar.addEventListener("click", ()=>{
         location.hash = "#/home"
     })
-    // Attach a capture-phase listener so it runs before other listeners
+  
     form.addEventListener("submit", async (e)=>{
-      console.log("[nuevoProyectoView] submit event fired (capture)");
+     
       e.preventDefault();
-      e.stopImmediatePropagation();
+      
 
         try {
             await agregarNuevoProyecto(
@@ -108,7 +107,7 @@ export function nuevoProyectoView(){
         }
         
 
-    }, {capture: true})
+    });
 
     
 

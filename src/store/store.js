@@ -42,7 +42,6 @@ export async function agregarProyecto(proyecto) {
     
     const nuevoProyecto = await response.json();
     store.proyectos.push(nuevoProyecto);
-    console.log("hize push a proyectos")
 }
 //-----------------------------------------------------
 //Usuarios
