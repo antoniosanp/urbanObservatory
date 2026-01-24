@@ -6,6 +6,8 @@ import { homeView } from "../views/homeView.js";
 import { app } from "../app.js";
 import { navbar } from "../components/navbar.js";
 import { footer } from "../components/footer.js";
+import { cerrarSesion } from "../store/store.js";
+import { nuevoProyectoView } from "../views/nuevoProyectoView.js";
 
 export function router(){
 
@@ -28,9 +30,14 @@ export function router(){
             break;
 
         case "#/nuevo_proyecto":
+            app.append(navbar(),nuevoProyectoView(),footer())
             
             break;
     
+        case "#/logout":
+            cerrarSesion()
+            location.hash = ""
+
         default:
             location.hash = "#/home"
             break;

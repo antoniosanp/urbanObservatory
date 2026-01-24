@@ -14,8 +14,8 @@ export function navbar(){
             </div>
             <nav class="header-nav">
                 <a href="#/home">Inicio</a>
-                <a href="#/nuevo_protecto">Nuevo Proyecto</a>
-                <a href="#/about">Acerca de</a>
+                <a href="#/nuevo_proyecto">Nuevo Proyecto</a>
+                <a href="#/logout">Cerrar sesión</a>
             </nav>
         </div>
     `
