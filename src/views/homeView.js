@@ -65,6 +65,7 @@ export  function homeView(){
     
         `
         const projectsGrid = main.querySelector(".projects-grid");
+
         renderProyectos(projectsGrid)
 
         const iptFiltroEstado = main.querySelector(".select-input")
@@ -77,7 +78,7 @@ export  function homeView(){
         return main
 }
 
-async function renderProyectos(div, filtroEstado = null, filtroPalabra = null){
+async function renderProyectos(div, filtroEstado = null, filtroPalabra = ""){
     div.innerHTML = "";
     
     for (const pro of store.proyectos){

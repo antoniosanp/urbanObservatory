@@ -69,7 +69,6 @@
       "lon": 23,
       "lat": 23.24
     },
-    
     {
       "id": "1495",
       "descripcion": "Antonio Santiago Pulgarín Arango",
@@ -85,6 +84,14 @@
       "estado": "finalizado",
       "lon": 23.2,
       "lat": 43.2
+    },
+    {
+      "id": "ed5e",
+      "descripcion": "adivinar donde queda ecuador",
+      "ciudad": "ecuador",
+      "estado": "activo",
+      "lon": 45,
+      "lat": 0
     }
   ]
 }
