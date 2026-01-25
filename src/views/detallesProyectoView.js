@@ -1,8 +1,8 @@
 //detallesProyectoView.js
+import { store } from "../store/store.js";
 
-
-export async function detallesProyecto(proyectoID) {
-
+export function detallesProyecto(id) {
+    const proyecto = getProyectoByID(id)
     const main  = document.createElement("main");
     main.innerHTML = 
     `
@@ -25,13 +25,13 @@ export async function detallesProyecto(proyectoID) {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
                             <div>
-                                <h1 class="detail-title">Ciudad de México</h1>
+                                <h1 class="detail-title">${proyecto.ciudad}</h1>
                                 <p class="detail-coords">Lat: 19.4326 / Lon: -99.1332</p>
                             </div>
                         </div>
                         <span class="badge active" style="font-size: 1rem; padding: 0.5rem 1rem;">Activo</span>
                     </div>
-                    <p class="detail-description">Monitoreo climático y ambiental en la zona metropolitana para prevención de contingencias ambientales y apoyo en la toma de decisiones para planeación urbana.</p>
+                    <p class="detail-description">${proyecto.descripcion}</p>
                 </div>
 
                 <!-- Main Content Grid -->
@@ -44,7 +44,7 @@ export async function detallesProyecto(proyectoID) {
                             <div class="temp-display">
                                 <div>
                                     <div class="temp-main">
-                                        <span class="temp-number">22°</span>
+                                        <span class="temp-number">${proyecto.temp}°</span>
                                         <span class="temp-unit">C</span>
                                     </div>
                                     <p class="temp-feels">Sensación térmica: 20°C</p>
@@ -205,5 +205,13 @@ export async function detallesProyecto(proyectoID) {
     
     `
 
+    return main
     
+}
+
+function getProyectoByID(id){
+    for (const pro of store.proyectos){
+        if (pro.id == id) {return pro}
+    }
+    return null
 }

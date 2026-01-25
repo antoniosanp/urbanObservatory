@@ -98,7 +98,6 @@ export function nuevoProyectoView(){
             estado.value,
             lon.value,
             lat.value);
-            console.log("[nuevoProyectoView] proyecto agregado (await returned)");
             mensajeExito.classList.remove("hidden");
            // location.hash ="#/home"
 

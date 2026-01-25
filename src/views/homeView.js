@@ -3,7 +3,6 @@ import { store } from "../store/store.js";
 import { proyectoCard } from "../components/proyectoCard.js";
 
 export  function homeView(){
-
     const contador = contarProyectos(store.proyectos);
 
     const main = document.createElement("main");
@@ -73,7 +72,7 @@ export  function homeView(){
 
         const btnFiltro = main.querySelector(".filter-button")
         btnFiltro.addEventListener("click", async()=>{
-            renderProyectos(projectsGrid, iptFiltroEstado.value, iptFiltroPalabra.value.trim());
+            renderProyectos(projectsGrid, iptFiltroEstado.value, iptFiltroPalabra.value);
         })
         return main
 }
@@ -106,6 +105,14 @@ async function renderProyectos(div, filtroEstado = null, filtroPalabra = ""){
            if ((pro.ciudad.toLowerCase().includes(palabra) ||
             pro.descripcion.toLowerCase().includes(palabra)) 
             && pro.estado === filtroEstado)
+             
+             { div.appendChild(card)}
+        }
+
+            else if (!filtroPalabra && filtroEstado)
+        {
+            
+           if (pro.estado === filtroEstado)
              
              { div.appendChild(card)}
         }

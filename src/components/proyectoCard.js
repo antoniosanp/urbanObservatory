@@ -1,3 +1,4 @@
+//proyectoCard.js
 import { getClima } from "../services/getClima.js";
 
 
@@ -64,7 +65,7 @@ export async function proyectoCard(proyecto){
                                 </svg>
                                 <span>Actualizado hace 10 min</span>
                             </div>
-                            <a href="detail.html" class="btn btn-outline">Ver detalle</a>
+                            <a href="#/home/${proyecto.id}" class="btn btn-outline">Ver detalle</a>
                         </div>
                     </div>
                 </article>
