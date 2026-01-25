@@ -4,13 +4,8 @@ import { proyectoCard } from "../components/proyectoCard.js";
 
 export  function homeView(){
 
-    let N_activos = 0;
-    let N_pendiente = 0;
-    let N_finalizado = 0;
+    const contador = contarProyectos(store.proyectos);
 
-    for(const pro of store.proyectos){
-        contarProyectos(pro)
-    }
     const main = document.createElement("main");
     main.innerHTML = 
     `
@@ -47,15 +42,15 @@ export  function homeView(){
             <div class="stats-grid">
                 <div class="stat-card green">
                     <p class="stat-label">Proyectos Activos</p>
-                    <p class="stat-value">${N_activos}</p>
+                    <p class="stat-value">${contador.activos}</p>
                 </div>
                 <div class="stat-card yellow">
-                    <p class="stat-label">En Desarrollo</p>
-                    <p class="stat-value">${N_pendiente}</p>
+                    <p class="stat-label">Pendiente</p>
+                    <p class="stat-value">${contador.pendientes}</p>
                 </div>
                 <div class="stat-card gray">
                     <p class="stat-label">Finalizados</p>
-                    <p class="stat-value">${N_finalizado}</p>
+                    <p class="stat-value">${contador.finalizados}</p>
                 </div>
             </div>
         </section>
@@ -99,21 +94,32 @@ async function renderProyectos(div, filto = null){
     }
 }
 
-function contarProyectos(proyecto){
+function contarProyectos(proyectos){
+    const contador = {
+        activos : 0,
+        pendientes : 0,
+        finalizados : 0
+    }
+    for (const proyecto of proyectos){
+
+
     switch (proyecto.estado) {
         case "activo":
-            N_activos ++
+            contador.activos ++
             break;
         
         case "pendiente":
-            N_pendiente++
+            contador.pendientes ++
             break;
         
         case "finalizado":
-            N_finalizado++
+            contador.finalizados ++
             break;
     
         default:
             break;
     }
+
+    }
+    return contador
 }
