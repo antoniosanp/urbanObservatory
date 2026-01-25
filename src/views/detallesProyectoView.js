@@ -1,16 +1,31 @@
 //detallesProyectoView.js
 import { store } from "../store/store.js";
+import { getClimaDetalles } from "../services/getClimaDetalles.js";
 
-export function detallesProyecto(id) {
+export async function detallesProyecto(id) {
+    
     const proyecto = getProyectoByID(id);
-    console.log(proyecto)
+    console.log(proyecto);
+    const datos = await getClimaDetalles(Number(proyecto.lon), Number(proyecto.lat));
+    console.log(datos)
+    const sunrise =  (datos.daily.sunrise[0].split("T")[1]);
+    const sunset = datos.daily.sunset[0].split("T")[1];
+    const tempHoras = datos.hourly.temperature_2m.slice(0,6);
+    const fecha = new Date();
+    const horas = [fecha.getHours(), fecha.getHours() +1, fecha.getHours() + 2,fecha.getHours() + 3, fecha.getHours() + 4,
+        fecha.getHours() + 5
+    ];
+    
+    const meses = [
+    "enero", "febrero", "marzo", "abril","mayo", "junio", "julio", "agosto","septiembre", "octubre", "noviembre", "diciembre"];
+
     const main  = document.createElement("main");
     main.innerHTML = 
     `
         <div class="detail-container">
             <div class="container">
                 <!-- Back Button -->
-                <a href="index.html" class="back-button">
+                <a href="#/home" class="back-button">
                     <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                     </svg>
@@ -27,10 +42,10 @@ export function detallesProyecto(id) {
                             </svg>
                             <div>
                                 <h1 class="detail-title">${proyecto.ciudad}</h1>
-                                <p class="detail-coords">Lat: 19.4326 / Lon: -99.1332</p>
+                                <p class="detail-coords">Lat: ${proyecto.lat} / Lon: ${proyecto.lon}</p>
                             </div>
                         </div>
-                        <span class="badge active" style="font-size: 1rem; padding: 0.5rem 1rem;">Activo</span>
+                        <span class="badge active" style="font-size: 1rem; padding: 0.5rem 1rem;">${proyecto.estado.toUpperCase()}</span>
                     </div>
                     <p class="detail-description">${proyecto.descripcion}</p>
                 </div>
@@ -45,10 +60,10 @@ export function detallesProyecto(id) {
                             <div class="temp-display">
                                 <div>
                                     <div class="temp-main">
-                                        <span class="temp-number">${proyecto.temp}°</span>
+                                        <span class="temp-number">${datos.current.temperature_2m}°</span>
                                         <span class="temp-unit">C</span>
                                     </div>
-                                    <p class="temp-feels">Sensación térmica: 20°C</p>
+                                    <p class="temp-feels">Sensación térmica: ${datos.current.temperature_2m}°C</p>
                                 </div>
                                 <svg class="temp-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -62,7 +77,7 @@ export function detallesProyecto(id) {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                                     </svg>
                                     <p class="metric-label">Viento</p>
-                                    <p class="metric-value">15 km/h</p>
+                                    <p class="metric-value">${datos.current.wind_speed_10m} km/h</p>
                                     <p class="metric-extra">NE</p>
                                 </div>
 
@@ -71,7 +86,7 @@ export function detallesProyecto(id) {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
                                     </svg>
                                     <p class="metric-label">Precipitación</p>
-                                    <p class="metric-value">0 mm</p>
+                                    <p class="metric-value">${datos.current.precipitation} mm</p>
                                 </div>
 
                                 <div class="metric-card teal">
@@ -79,7 +94,7 @@ export function detallesProyecto(id) {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                     </svg>
                                     <p class="metric-label">Humedad</p>
-                                    <p class="metric-value">65%</p>
+                                    <p class="metric-value">${datos.current.relative_humidity_2m}%</p>
                                 </div>
 
                                 <div class="metric-card purple">
@@ -88,7 +103,7 @@ export function detallesProyecto(id) {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                     </svg>
                                     <p class="metric-label">Visibilidad</p>
-                                    <p class="metric-value">10 km</p>
+                                    <p class="metric-value">${(datos.hourly.visibility[0])/1000} km</p>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +122,7 @@ export function detallesProyecto(id) {
                                         </svg>
                                         <span>Amanecer</span>
                                     </div>
-                                    <span class="sun-time">06:45</span>
+                                    <span class="sun-time">${sunrise}</span>
                                 </div>
                                 <div class="sun-item">
                                     <div class="sun-label">
@@ -116,7 +131,7 @@ export function detallesProyecto(id) {
                                         </svg>
                                         <span>Atardecer</span>
                                     </div>
-                                    <span class="sun-time">19:30</span>
+                                    <span class="sun-time">${sunset}</span>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +144,14 @@ export function detallesProyecto(id) {
                                 </svg>
                                 <div>
                                     <p class="update-label">Última actualización</p>
-                                    <p class="update-date">21 de enero, 2026 - 13:45</p>
+                                    <p class="update-date">
+                                    ${fecha.getDate()} de
+                                    ${meses[fecha.getMonth()]}
+                                    , ${fecha.getFullYear()}
+                                    -
+                                    ${fecha.getHours()} :
+                                    ${fecha.getMinutes()}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -141,51 +163,51 @@ export function detallesProyecto(id) {
                     <h2 class="section-title">Pronóstico por Hora</h2>
                     <div class="forecast-grid">
                         <div class="forecast-item">
-                            <p class="forecast-time">14:00</p>
+                            <p class="forecast-time">${horas[0]}:00</p>
                             <svg class="forecast-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
-                            <p class="forecast-temp">23°</p>
+                            <p class="forecast-temp">${tempHoras[0]}°</p>
                             <p class="forecast-condition">Soleado</p>
                         </div>
                         <div class="forecast-item">
-                            <p class="forecast-time">15:00</p>
+                            <p class="forecast-time">${horas[1]}:00</p>
                             <svg class="forecast-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
-                            <p class="forecast-temp">24°</p>
+                            <p class="forecast-temp">${tempHoras[1]}°</p>
                             <p class="forecast-condition">Soleado</p>
                         </div>
                         <div class="forecast-item">
-                            <p class="forecast-time">16:00</p>
+                            <p class="forecast-time">${horas[2]}:00</p>
                             <svg class="forecast-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
-                            <p class="forecast-temp">23°</p>
+                            <p class="forecast-temp">${tempHoras[2]}°</p>
                             <p class="forecast-condition">Parcialmente nublado</p>
                         </div>
                         <div class="forecast-item">
-                            <p class="forecast-time">17:00</p>
+                            <p class="forecast-time">${horas[3]}:00</p>
                             <svg class="forecast-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
-                            <p class="forecast-temp">22°</p>
+                            <p class="forecast-temp">${tempHoras[3]}°</p>
                             <p class="forecast-condition">Nublado</p>
                         </div>
                         <div class="forecast-item">
-                            <p class="forecast-time">18:00</p>
+                            <p class="forecast-time">${horas[4]}:00</p>
                             <svg class="forecast-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
-                            <p class="forecast-temp">20°</p>
+                            <p class="forecast-temp">${tempHoras[4]}°</p>
                             <p class="forecast-condition">Nublado</p>
                         </div>
                         <div class="forecast-item">
-                            <p class="forecast-time">19:00</p>
+                            <p class="forecast-time">${horas[5]}:00</p>
                             <svg class="forecast-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
-                            <p class="forecast-temp">19°</p>
+                            <p class="forecast-temp">${tempHoras[5]}°</p>
                             <p class="forecast-condition">Parcialmente nublado</p>
                         </div>
                     </div>

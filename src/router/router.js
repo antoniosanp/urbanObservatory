@@ -10,7 +10,7 @@ import { cerrarSesion } from "../store/store.js";
 import { nuevoProyectoView } from "../views/nuevoProyectoView.js";
 import { detallesProyecto } from "../views/detallesProyectoView.js";
 
-export function router(){
+export async function router(){
     const hash = location.hash;
     document.body.className = "";
   
@@ -24,8 +24,9 @@ export function router(){
     if (hash.startsWith("#/home/"))
     {
         let hashDetalle = hash.split("/")[2];
-        console.log(hashDetalle);
-        app.append(navbar(),detallesProyecto(hashDetalle),footer())
+        const vista = await detallesProyecto(hashDetalle);
+        app.append(navbar(),vista,footer());
+        return;
         
     }
 
@@ -54,7 +55,7 @@ export function router(){
             location.hash = ""
 
         default:
-            //location.hash = "#/home"
+            location.hash = "#/home"
             break;
     }
 
