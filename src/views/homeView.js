@@ -64,30 +64,49 @@ export  function homeView(){
         </section>
     
         `
-        console.log(store.proyectos)
-
         const projectsGrid = main.querySelector(".projects-grid");
         renderProyectos(projectsGrid)
 
-        const inpFiltroEstado = main.querySelector(".select-input")
+        const iptFiltroEstado = main.querySelector(".select-input")
+        const iptFiltroPalabra = main.querySelector(".search-input")
+
         const btnFiltro = main.querySelector(".filter-button")
         btnFiltro.addEventListener("click", async()=>{
-            renderProyectos(projectsGrid, inpFiltroEstado.value);
+            renderProyectos(projectsGrid, iptFiltroEstado.value, iptFiltroPalabra.value.trim());
         })
         return main
 }
 
-async function renderProyectos(div, filto = null){
+async function renderProyectos(div, filtroEstado = null, filtroPalabra = null){
     div.innerHTML = "";
     
     for (const pro of store.proyectos){
     
         const card = await proyectoCard(pro);
-        if (!filto) {div.appendChild(card)}
-        else 
+        const palabra = filtroPalabra.toLowerCase()
+
+        if (!filtroEstado && !filtroPalabra) {div.appendChild(card)}
+
+
+        else if (filtroPalabra && !filtroEstado)
         {
-        if (pro.estado == filto)
-       { div.appendChild(card)} 
+            
+           if (pro.ciudad.toLowerCase().includes(palabra) ||
+            pro.descripcion.toLowerCase().includes(palabra))
+             
+             { div.appendChild(card)}
+
+        }
+
+
+        else if (filtroPalabra && filtroEstado)
+        {
+            
+           if ((pro.ciudad.toLowerCase().includes(palabra) ||
+            pro.descripcion.toLowerCase().includes(palabra)) 
+            && pro.estado === filtroEstado)
+             
+             { div.appendChild(card)}
         }
     
 
