@@ -2,7 +2,8 @@
 import { store } from "../store/store.js";
 
 export function detallesProyecto(id) {
-    const proyecto = getProyectoByID(id)
+    const proyecto = getProyectoByID(id);
+    console.log(proyecto)
     const main  = document.createElement("main");
     main.innerHTML = 
     `
