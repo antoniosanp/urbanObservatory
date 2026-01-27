@@ -9,12 +9,12 @@ export function registrar() {
 
             <div>
             <label for="email">Correo</label>
-            <input id="email" type="email" placeholder="Ingresa tu correo">
+            <input id="email" type="email" placeholder="Ingresa tu correo" required>
             </div>
 
             <div>
             <label for="password">Contraseña</label>
-            <input id="password" type="password" placeholder="••••••••">
+            <input id="password" type="password" placeholder="••••••••" required>
             </div>
 
             <button type="submit">Crear Usuario</button>
