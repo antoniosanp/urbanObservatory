@@ -51,19 +51,7 @@ export async function obtenerUsuarios() {
     const response = await fetch(`${API_SERVER}/users`);
     const responseJSON = await response.json();
     return responseJSON;
-
-}
-
-export async function registrarUsuario(userData) {
-
-    const response = await fetch(`${API_SERVER}/users`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData)
-    });
-
-    const nuevoUsuario = await response.json();
-    return nuevoUsuario;
+    
 }
 //-----------------------------------------------------
 //Funciones  inicio de sesión
