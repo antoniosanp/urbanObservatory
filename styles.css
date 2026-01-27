@@ -1294,3 +1294,31 @@ body {
   text-align: right;
 } */
 
+a[class*="btn"]{
+  text-align: center;
+}
+
+/*INGRESO POR REDES*/
+
+.separar{
+  width: 100%;
+  height: auto;
+background-color:rgb(255, 255, 255) ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.red{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+    background: #2563eb;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #ffffff;
+ height: 34px;
+}
