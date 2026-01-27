@@ -19,6 +19,7 @@ export function registrar() {
             </div>
 
             <button type="submit">Crear Usuario</button>
+            <a href="#/login" class="btn"> Login  </a>
             <p class="auth-error hidden">
          El correo electronico ya se encuentra registrado
         </p>
