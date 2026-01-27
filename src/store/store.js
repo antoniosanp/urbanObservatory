@@ -45,6 +45,13 @@ export async function agregarProyecto(proyecto) {
 }
 //-----------------------------------------------------
 //Usuarios
+export async function validarUsuario(email){
+    const usuarios = await obtenerUsuarios();
+    console.log(usuarios);
+    
+    const user = usuarios.find(user=> user.user == email);
+    return user ? true:false
+}
 
 export async function obtenerUsuarios() {
 
@@ -55,7 +62,6 @@ export async function obtenerUsuarios() {
 }
 
 export async function registrarUsuario(userData) {
-
     const response = await fetch(`${API_SERVER}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
