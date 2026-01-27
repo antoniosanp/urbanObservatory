@@ -9,6 +9,16 @@
       "id": "2",
       "user": "antonio@hotmail.com",
       "password": "password123"
+    },
+    {
+      "id": "9dc7",
+      "user": "estenoespeppa@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": "da09",
+      "user": "",
+      "password": ""
     }
   ],
   "sesion-iniciada": false,
