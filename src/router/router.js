@@ -17,7 +17,7 @@ export async function router(){
   
     app.innerHTML = "";
 
-    if (!store.sesion_iniciada && hash !== "#/login" && hash !== "#/register") {location.hash = "#/login"; return}
+    if (!store.sesion_iniciada && hash !== "#/login") {location.hash = "#/login"; return}
 
     //-----------------------------------------------------------------------------------------
     //router dinámico
