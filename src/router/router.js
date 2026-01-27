@@ -2,6 +2,7 @@
 
 import { store } from "../store/store.js";
 import { loginView } from "../views/loginView.js";
+import { registerView } from "../views/registerView.js";
 import { homeView } from "../views/homeView.js";
 import { app } from "../app.js";
 import { navbar } from "../components/navbar.js";
@@ -16,7 +17,7 @@ export async function router(){
   
     app.innerHTML = "";
 
-    if (!store.sesion_iniciada && hash !== "#/login") {location.hash = "#/login"; return}
+    if (!store.sesion_iniciada && hash !== "#/login" && hash !== "#/register") {location.hash = "#/login"; return}
 
     //-----------------------------------------------------------------------------------------
     //router dinámico
@@ -36,8 +37,13 @@ export async function router(){
 
     switch (hash) {
         case "#/login":
-            
+
             app.appendChild(loginView())
+            break;
+
+        case "#/register":
+
+            app.appendChild(registerView())
             break;
 
         case "#/home":
