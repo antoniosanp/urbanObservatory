@@ -4,7 +4,8 @@ export const API_SERVER = "http://localhost:3000"
 export const store = {
     user : null,
     proyectos : [],
-    sesion_iniciada : false
+    sesion_iniciada : false,
+    climaCache : new Map()
 }
 
 //-----------------------------------------------------------
