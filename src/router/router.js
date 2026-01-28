@@ -2,6 +2,7 @@
 
 import { store } from "../store/store.js";
 import { loginView } from "../views/loginView.js";
+import { registrar } from "../views/registro.js";
 import { homeView } from "../views/homeView.js";
 import { app } from "../app.js";
 import { navbar } from "../components/navbar.js";
@@ -36,18 +37,19 @@ export async function router(){
 
     switch (hash) {
         case "#/login":
-            
             app.appendChild(loginView())
+            break;
+
+        case "#/register":
+            app.innerHTML = (registrar())
             break;
 
         case "#/home":
             app.append(navbar(),homeView(),footer())
-            
             break;
 
         case "#/nuevo_proyecto":
             app.append(navbar(),nuevoProyectoView(),footer())
-            
             break;
     
         case "#/logout":
